@@ -92,6 +92,7 @@ form input {
 .photograph-header img{
     object-fit: cover;
     width: 100%;
+    height: 100%;
 }
 .photograph-header article:nth-child(3){
     width:250px;
