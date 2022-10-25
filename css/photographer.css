@@ -74,3 +74,32 @@ form input {
     border: none;
     border-radius: 5px;
 }
+
+/* AJOUT */
+
+.photograph-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 25px;
+}
+
+.photograph-header h1 {
+    font-size: 55px;
+    color: #D3573C;
+}
+
+.photograph-header img{
+    object-fit: cover;
+    width: 100%;
+}
+.photograph-header article:nth-child(3){
+    width:250px;
+    height:250px;
+    border-radius: 1000px;
+    overflow: hidden;
+}
+
+.photograph-header .infoBlocLeft {
+display: block;
+}
