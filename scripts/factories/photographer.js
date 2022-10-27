@@ -11,7 +11,7 @@ function photographerFactory(data) {
         const h2 = document.createElement( 'h2' );
         h2.textContent = name;
         const a = document.createElement( 'a' );
-        a.href = `../Front-End-Fisheye/photographer.html?id=${id}`;
+        a.href = `photographer.html?id=${id}`;
         const location = document.createElement( 'h3' );
         location.textContent = city + ', ' + country;
         const text = document.createElement( 'p' );
