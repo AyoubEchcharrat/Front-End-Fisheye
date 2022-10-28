@@ -104,3 +104,35 @@ form input {
 .photograph-header .infoBlocLeft {
 display: block;
 }
+
+.media-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin:100px;
+}
+.photographer-card__image{
+    object-fit: cover;
+    object-position: center;
+    scale: 1.2;
+    width: 100%;
+}
+
+.photographer-card {
+    width: 30%;
+    height: 320px;
+    box-sizing: border-box;
+    overflow: hidden;
+    margin: 25px 0;
+}
+video.photographer-card__video {
+    width: 100%;
+}
+
+#contact_modal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%);
+    width:100%;
+}
