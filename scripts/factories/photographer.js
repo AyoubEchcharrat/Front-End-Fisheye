@@ -25,7 +25,7 @@ function photographerFactory(data) {
         article.appendChild(location);
         article.appendChild(text);
         article.appendChild(priceday);
-        console.log(article)
+        //console.log(article)
         return (article);
     }
 
@@ -57,10 +57,16 @@ async function displayOnPageFactory(photographers,IDselect) { //affiche les él�
     const picture = `assets/photographers/${portrait}`;
     const photographHeader = document.querySelector(".photograph-header");
     const button = document.querySelector(".contact_button");
+    const main = document.querySelector("#main");
 
     const infoBlocLeft = document.createElement( 'article' );
     const infoBlocRight = document.createElement( 'article' );
     infoBlocLeft.classList.add("infoBlocLeft");
+
+    const infoBlocTarif = document.createElement('article');
+    infoBlocTarif.classList.add("infoBlocTarif");
+    const putPrice = document.createElement( 'p' );
+    putPrice.textContent = price +"€ /jour";
 
     const img = document.createElement( 'img' );
     img.setAttribute("src", picture)
@@ -71,12 +77,15 @@ async function displayOnPageFactory(photographers,IDselect) { //affiche les él�
     const text = document.createElement( 'p' );
     text.textContent = tagline;
 
+
+    infoBlocTarif.append(putPrice);
     infoBlocLeft.append(h1);
     infoBlocLeft.append(text);
     infoBlocLeft.append(location);
     infoBlocRight.append(img)
     photographHeader.prepend(infoBlocLeft)
     photographHeader.append(infoBlocRight);
+    main.append(infoBlocTarif)
 }
 
 async function mediaFactory(media,IDselect) { //affiche les médias
@@ -86,7 +95,7 @@ async function mediaFactory(media,IDselect) { //affiche les médias
 
 
     for (let key in media) {
-        console.log("boucle -> id : ",media[key].photographerId)
+        //console.log("boucle -> id : ",media[key].photographerId)
         if (media[key].photographerId == IDselect){
             if(media[key].image){
                 foundMedia.push(media[key].image)
@@ -95,7 +104,7 @@ async function mediaFactory(media,IDselect) { //affiche les médias
             }
         }
     }
-    console.log("foundMedia = ",foundMedia)
+    //console.log("foundMedia = ",foundMedia)
     return await foundMedia
 }
 
@@ -103,17 +112,17 @@ async function mediaFactory(media,IDselect) { //affiche les médias
 async function displayMediaFactory(media,photographers,IDselect){
 
     let foundMedia = await mediaFactory(media,IDselect);
-    console.log(foundMedia)
+    //console.log(foundMedia)
     let foundUser = await foundPhotographer(photographers,IDselect);
 
     const { name } = foundUser;
 
     const firstName = name.split(' ')[0];
-    console.log(firstName)
+    //console.log(firstName)
 
     for (let key in foundMedia){
         const imageURL = `assets/Sample Photos/${firstName}/${foundMedia[key]}`;
-        console.log(imageURL)
+        //console.log(imageURL)
 
 
         let blocImage = document.querySelector(".media-container");
@@ -122,7 +131,7 @@ async function displayMediaFactory(media,photographers,IDselect){
         blocImage.append(card)
 
         const afterDot = imageURL.split('.');
-        console.log(afterDot[1]);
+        //console.log(afterDot[1]);
         if(afterDot[1]== 'mp4'){
             let video = document.createElement('video');
             video.src = imageURL;
@@ -133,6 +142,17 @@ async function displayMediaFactory(media,photographers,IDselect){
             image.setAttribute('src',imageURL)
             image.classList.add('photographer-card__image')
             card.append(image)
+            setTimeout(() => {
+                let realWidth = image.naturalWidth;
+            let realHeight = image.naturalHeight;
+            console.log("width = " + realWidth + ", " + "height = " + realHeight);
+            if(realWidth>realHeight){
+                console.log("injection de landscape")
+                image.classList.add('photographer-card__image__landscape') 
+            }
+            console.log("-------")
+              }, "1000")
+            
         }
     }
 

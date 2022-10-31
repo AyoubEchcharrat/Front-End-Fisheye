@@ -7,7 +7,7 @@ async function getPhotographers() {
         }
     })
     .then(function(value){
-        console.log(value)
+        //console.log(value)
         return (value)
     })
     .catch(function(err){
@@ -19,7 +19,7 @@ async function getID(){
     let params = (new URL(document.location)).searchParams;
     let id = params.get('id'); 
 
-    console.log(id);
+    //console.log(id);
     return id
 }
 
