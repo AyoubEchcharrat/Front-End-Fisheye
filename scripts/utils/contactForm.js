@@ -10,6 +10,15 @@ function closeModal() {
 
 document.getElementById("contact_button").addEventListener("click", async function(e){
     e.preventDefault();
-    let input = document.getElementById('inputname').value
-    console.log("ton nom est "+ input)
+
+    let firstname = document.getElementById('firstname').value
+    console.log("Prénom :  "+ firstname)
+    let lastname = document.getElementById('lastname').value
+    console.log("Nom : "+ lastname)
+    let email = document.getElementById('email').value
+    console.log("Email : "+ email)
+    if (document.getElementById('yourmessage').value){
+        let yourmessage = document.getElementById('yourmessage').value
+        console.log("Message : "+ yourmessage)
+    }
 })
