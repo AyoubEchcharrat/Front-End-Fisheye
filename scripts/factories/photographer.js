@@ -109,10 +109,10 @@ async function mediaFactory(media,IDselect) { //affiche les médias
 }
 
 
-async function displayMediaFactory(media,photographers,IDselect){
+async function displayMediaFactory(media,photographers,IDselect){//HUB pour display les medias
 
     let foundMedia = await mediaFactory(media,IDselect);
-    //console.log(foundMedia)
+    console.log(foundMedia)
     let foundUser = await foundPhotographer(photographers,IDselect);
     let incremen = 0;
     const { name } = foundUser;
@@ -122,9 +122,6 @@ async function displayMediaFactory(media,photographers,IDselect){
 
     for (let key in foundMedia){
         const imageURL=`assets/Sample Photos/${firstName}/${foundMedia[key]}`;
-        incremen = incremen +1 ;
-        //console.log(imageURL)
-
 
         let blocImage = document.querySelector(".media-container");
         let card = document.createElement('article');
@@ -133,37 +130,38 @@ async function displayMediaFactory(media,photographers,IDselect){
 
         const afterDot = imageURL.split('.');
         //console.log(afterDot[1]);
-        if(afterDot[1]== 'mp4'){
-            let video = document.createElement('video');
-            video.src = imageURL;
-            video.classList.add('photographer-card__video')
-            card.append(video)
-        }else{
-            let image = document.createElement('img');
-            image.setAttribute('src',imageURL)
-            image.addEventListener('click', function handleClick(event) {
-                // transmission d'informations sur l'image cliquée
-                console.log(event.target.id)
-                trx = event.target.id;
-                displayLightbox(trx);
-              }); 
-            image.setAttribute('tabindex',incremen)
-            image.setAttribute('id','media'+incremen)
-
-            image.classList.add('photographer-card__image')
-            card.append(image)
-            setTimeout(() => {
-                let realWidth = image.naturalWidth;
-                let realHeight = image.naturalHeight;
-                console.log("width = " + realWidth + ", " + "height = " + realHeight);
-                if(realWidth>realHeight){
-                    console.log("injection de landscape")
-                    image.classList.add('photographer-card__image__landscape') 
-                }
-                console.log("-------")
-            }, "1000")
-            
+        if(afterDot[1]== 'mp4'){//video
+            console.log(afterDot[1])
+            var media = document.createElement('video');
+            media.src = imageURL;
+            media.classList.add('photographer-card__video')
+            card.append(media)
+        }else{//photo
+            console.log(afterDot[1])
+            var media = document.createElement('img');
+            media.setAttribute('src',imageURL)
+            media.classList.add('photographer-card__image')
+            card.append(media)
         }
-    }
 
+        media.setAttribute('id','media'+incremen)
+        media.addEventListener('click', function sendtolightbox() {
+            // transmission d'informations sur l'media cliquée
+            IDclicked = this.id;
+            displayLightbox(IDclicked,foundMedia,firstName);
+            Move(IDclicked,foundMedia,firstName)
+
+          }); 
+        incremen = incremen +1 ;
+        
+            let realWidth = media.naturalWidth;
+            let realHeight = media.naturalHeight;
+            console.log("width = " + realWidth + ", " + "height = " + realHeight);
+            if(realWidth>realHeight){
+                console.log("injection de landscape")
+                media.classList.add('photographer-card__image__landscape') 
+            }
+            console.log("-------")
+        
+    }
 }

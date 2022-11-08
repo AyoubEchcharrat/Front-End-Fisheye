@@ -108,9 +108,10 @@ display: block;
 .media-container {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
-    margin:100px;
+    justify-content: center;
+    margin: 40px;
 }
+
 .photographer-card__image{
     object-fit: cover;
     object-position: center;
@@ -118,11 +119,11 @@ display: block;
 }
 
 .photographer-card {
-    width: 30%;
-    height: 320px;
+    width: 23vw;
+    height: 23vw;
     box-sizing: border-box;
     overflow: hidden;
-    margin: 25px 0;
+    margin: 40px;
 }
 video.photographer-card__video {
     height: 100%;
@@ -138,7 +139,6 @@ video.photographer-card__video {
 
 .photographer-card__image__landscape{
     height:100%;
-    width:unset!important;
 }
 
 .infoBlocTarif {
@@ -151,10 +151,43 @@ video.photographer-card__video {
 
 #lightbox_background{
     display: none;
-    background-color: rgba(0, 0, 0, 0.2);
+    background-color: rgba(0, 0, 0, 0.75);
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
+}
+
+.lightbox__currentImage {height: 75%;}
+.lightbox__currentVideo{height:75%;}
+
+#lightbox {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+
+.lightbox__chevronR,.lightbox__chevronL {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 100px;
+    color:white;
+    z-index:99;
+    cursor: pointer;
+}
+.lightbox__chevronR {
+    right: 0;
+}
+
+.lightbox__chevronL {
+    left: 0;
+}
+
+.close_button {
+    padding: 33px;
+    width: 20px;
+    cursor: pointer;
 }
