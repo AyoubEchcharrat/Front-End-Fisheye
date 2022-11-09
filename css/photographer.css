@@ -119,14 +119,29 @@ display: block;
 }
 
 .photographer-card {
+    padding: 10px 40px;
+}
+
+.photographer-imgContainer{
     width: 23vw;
     height: 23vw;
     box-sizing: border-box;
     overflow: hidden;
-    margin: 40px;
+    margin: 0;
 }
-video.photographer-card__video {
+
+.photographer-title {
+    color: #901c1c;
+}
+
+.photographer-card__video{
     height: 100%;
+}
+
+.photographer-infoContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 #contact_modal {
@@ -190,4 +205,59 @@ video.photographer-card__video {
     padding: 33px;
     width: 20px;
     cursor: pointer;
+}
+
+
+
+.card__containerImg{
+    height: 250px;
+    width: 250px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 1000px;
+}
+.card__img{
+    width: 115%;
+    object-fit: cover;
+}
+
+.card__img__landscape{
+    height: 115%;
+    width: unset;
+}
+
+.card__name {
+    text-align: center;
+    font-weight: 400;
+}
+
+.card__link {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+h3.card__location {
+    color: #D3573C;
+    margin: 5px 0;
+}
+
+p.card__text {
+    margin: 5px 0;
+}
+
+p.card__priceday {
+    margin: 0;
+    color: gray;
+}
+
+.card__name {
+    text-align: center;
+    font-weight: 400;
+    color: #D3573C;
+    font-size: 36px;
+    margin: 10px 0px;
 }

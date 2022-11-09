@@ -1,4 +1,5 @@
 function photographerFactory(data) {
+    //factory qui renvoie l'HTML de chaque vignette photographe page d'accueil
     const { name, portrait , tagline , city, country , price , id} = data;
 
     const picture = `assets/photographers/${portrait}`;
@@ -7,6 +8,7 @@ function photographerFactory(data) {
 
         const article = document.createElement( 'article' );
         const img = document.createElement( 'img' );
+        const containerImg = document.createElement( 'div' );
         img.setAttribute("src", picture)
         const h2 = document.createElement( 'h2' );
         h2.textContent = name;
@@ -18,8 +20,25 @@ function photographerFactory(data) {
         text.textContent = tagline;
         const priceday = document.createElement( 'p' );
         priceday.textContent = price + '€/jour';
+        containerImg.classList.add('card__containerImg');
+        location.classList.add('card__location');
+        priceday.classList.add('card__priceday');
+        text.classList.add('card__text');
+        h2.classList.add('card__name');
+        img.classList.add('card__img');
+        a.classList.add('card__link');
 
-        a.appendChild(img);
+        let realWidth = img.naturalWidth;
+        let realHeight = img.naturalHeight;
+        console.log("width = " + realWidth + ", " + "height = " + realHeight);
+        if(realWidth>realHeight){
+            console.log("injection de landscape")
+            img.classList.add('card__img__landscape') 
+        }
+        console.log("-------")
+
+        containerImg.appendChild(img)
+        a.appendChild(containerImg);
         a.appendChild(h2);
         article.appendChild(a)
         article.appendChild(location);
@@ -48,7 +67,8 @@ async function foundPhotographer(photographers,IDselect){ //retourne le photogra
     return await foundUser
 }
 
-async function displayOnPageFactory(photographers,IDselect) { //affiche les élém. de presentation
+async function displayOnPageFactory(photographers,IDselect) { 
+    //affiche les élém. de presentation du photographe sur la page photographer
     
     foundUser = await foundPhotographer(photographers,IDselect);
 
@@ -88,7 +108,8 @@ async function displayOnPageFactory(photographers,IDselect) { //affiche les él�
     main.append(infoBlocTarif)
 }
 
-async function mediaFactory(media,IDselect) { //affiche les médias
+async function mediaFactory(media,IDselect) { 
+    //renvoie les médias, page photographer
     
     let foundMedia = [] ;
     //console.log("ID recherché : ",IDselect)
@@ -109,24 +130,55 @@ async function mediaFactory(media,IDselect) { //affiche les médias
 }
 
 
-async function displayMediaFactory(media,photographers,IDselect){//HUB pour display les medias
+async function titleFactory(media,IDselect) { 
+    //renvoie le noms des médias, page photographer
+    
+    let foundTitle = [] ;
+    //console.log("ID recherché : ",IDselect)
+
+
+    for (let key in media) {
+        //console.log("boucle -> id : ",media[key].photographerId)
+        if (media[key].photographerId == IDselect){
+                foundTitle.push(media[key].title)
+        }
+    }
+    //console.log("foundMedia = ",foundMedia)
+    return await foundTitle
+}
+
+
+async function displayMediaFactory(media,photographers,IDselect){
+    //HUB pour display les medias page photographer
 
     let foundMedia = await mediaFactory(media,IDselect);
     console.log(foundMedia)
     let foundUser = await foundPhotographer(photographers,IDselect);
     let incremen = 0;
     const { name } = foundUser;
-
+    let foundTitle = await titleFactory(media,IDselect);
     const firstName = name.split(' ')[0];
-    //console.log(firstName)
+    console.log(foundTitle)
 
     for (let key in foundMedia){
         const imageURL=`assets/Sample Photos/${firstName}/${foundMedia[key]}`;
 
-        let blocImage = document.querySelector(".media-container");
-        let card = document.createElement('article');
+        let blocImage = document.querySelector(".media-container")
+        let card = document.createElement('div')
+        let imgContainer = document.createElement('div')
+        let infoContainer = document.createElement('div')
+        let title = document.createElement('p')
+        let likes = document.createElement('p')
+        let coeur = document.createElement('i')
+
+        likes.classList.add('photographer-likes')
+        likes.innerHTML = '<i class="fa-regular fa-heart"></i>';
+        infoContainer.classList.add('photographer-infoContainer')
         card.classList.add('photographer-card')
-        blocImage.append(card)
+        imgContainer.classList.add('photographer-imgContainer')
+        title.classList.add('photographer-title')
+        title.textContent = foundTitle[key]
+        console.log(foundTitle[key])
 
         const afterDot = imageURL.split('.');
         //console.log(afterDot[1]);
@@ -135,15 +187,20 @@ async function displayMediaFactory(media,photographers,IDselect){//HUB pour disp
             var media = document.createElement('video');
             media.src = imageURL;
             media.classList.add('photographer-card__video')
-            card.append(media)
+            imgContainer.append(media)
         }else{//photo
             console.log(afterDot[1])
             var media = document.createElement('img');
             media.setAttribute('src',imageURL)
             media.classList.add('photographer-card__image')
-            card.append(media)
+            imgContainer.append(media)
         }
-
+        blocImage.append(card)
+        card.append(imgContainer)
+        likes.append(coeur)
+        infoContainer.append(title)
+        infoContainer.append(likes)
+        card.append(infoContainer)
         media.setAttribute('id','media'+incremen)
         media.addEventListener('click', function sendtolightbox() {
             // transmission d'informations sur l'media cliquée
@@ -164,4 +221,24 @@ async function displayMediaFactory(media,photographers,IDselect){//HUB pour disp
             console.log("-------")
         
     }
+}
+
+
+async function likes(){
+
+    
+
+
+
+    setTimeout(() => {
+
+        var buttonContainer = document.querySelectorAll('.photographer-card')
+        for (var index = 0; index < buttonContainer.length; index++) {
+            console.log('BUTTON COUTAINER ====='+buttonContainer[index].innerHTML);
+        }
+      }, "4000")
+
+    var button = document.createElement('div')
+    button.classList.toggle("mystyle");
+
 }
