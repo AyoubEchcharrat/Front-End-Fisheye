@@ -261,3 +261,23 @@ p.card__priceday {
     font-size: 36px;
     margin: 10px 0px;
 }
+
+.fa-heart{
+    color:#901c1c;
+    margin: 18px 0px 18px 10px;
+}
+
+.liked::before{
+    content: '\f004';
+    font-family: FontAwesome;
+    font-weight: normal;
+    font-style: normal;
+    text-decoration:none;
+    color:#901c1c
+}
+
+
+.photographer-likes {
+    display: flex;
+    flex-direction: row-reverse;
+}

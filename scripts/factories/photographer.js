@@ -168,10 +168,11 @@ async function displayMediaFactory(media,photographers,IDselect){
         let imgContainer = document.createElement('div')
         let infoContainer = document.createElement('div')
         let title = document.createElement('p')
-        let likes = document.createElement('p')
-        let coeur = document.createElement('i')
+        let likes = document.createElement('div')
+        let number = document.createElement('p')
 
         likes.classList.add('photographer-likes')
+        number.classList.add('photographer-numbers')
         likes.innerHTML = '<i class="fa-regular fa-heart"></i>';
         infoContainer.classList.add('photographer-infoContainer')
         card.classList.add('photographer-card')
@@ -194,23 +195,6 @@ async function displayMediaFactory(media,photographers,IDselect){
             media.setAttribute('src',imageURL)
             media.classList.add('photographer-card__image')
             imgContainer.append(media)
-        }
-        blocImage.append(card)
-        card.append(imgContainer)
-        likes.append(coeur)
-        infoContainer.append(title)
-        infoContainer.append(likes)
-        card.append(infoContainer)
-        media.setAttribute('id','media'+incremen)
-        media.addEventListener('click', function sendtolightbox() {
-            // transmission d'informations sur l'media cliquée
-            IDclicked = this.id;
-            displayLightbox(IDclicked,foundMedia,firstName);
-            Move(IDclicked,foundMedia,firstName)
-
-          }); 
-        incremen = incremen +1 ;
-        
             let realWidth = media.naturalWidth;
             let realHeight = media.naturalHeight;
             console.log("width = " + realWidth + ", " + "height = " + realHeight);
@@ -219,26 +203,63 @@ async function displayMediaFactory(media,photographers,IDselect){
                 media.classList.add('photographer-card__image__landscape') 
             }
             console.log("-------")
+        }
+        blocImage.append(card)
+        card.append(imgContainer)
+        likes.append(number)      
+        infoContainer.append(title)
+        infoContainer.append(likes)
+        card.append(infoContainer)
+        media.setAttribute('id','media'+incremen)
+    
         
+        media.addEventListener('click', function sendtolightbox() {
+            // transmission d'informations sur l'media cliquée
+            IDclicked = this.id;
+            displayLightbox(IDclicked,foundMedia,firstName);
+            Move(IDclicked,foundMedia,firstName)
+        }); 
+        incremen = incremen +1 ;
     }
+
 }
 
 
 async function likes(){
 
-    
+    function getRandomInt(max) {
+        return Math.floor(Math.random() * max);
+    }
 
-
+    function addingOne(heart) {
+        let previous = heart.nextSibling
+        number = Number(previous.innerText)
+        if (heart.classList.contains('liked')){
+            previous.innerText = number +1
+        }else{
+            previous.innerText = number -1
+        }
+    }
 
     setTimeout(() => {
 
-        var buttonContainer = document.querySelectorAll('.photographer-card')
-        for (var index = 0; index < buttonContainer.length; index++) {
-            console.log('BUTTON COUTAINER ====='+buttonContainer[index].innerHTML);
-        }
-      }, "4000")
+        var hearts = document.querySelectorAll('.fa-heart');
+        var numbers = document.querySelectorAll('.photographer-numbers');
 
-    var button = document.createElement('div')
-    button.classList.toggle("mystyle");
+        for (const heart of hearts) {
+            heart.addEventListener('click', function liked() {
+                heart.classList.toggle('liked')
+                addingOne(heart)
+
+            })
+        }
+
+        for (const number of numbers) {
+            number.textContent = getRandomInt(100)
+        }
+
+    }, "500")
+
+    
 
 }
