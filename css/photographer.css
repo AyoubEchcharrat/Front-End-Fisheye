@@ -187,12 +187,13 @@ display: block;
 }
 
 .lightbox__currentImage {height: 75%;}
-.lightbox__currentVideo{height:75%;}
+.lightbox__currentVideo{height:70%;}
 
 #lightbox {
     height: 100%;
     display: flex;
-    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 
 
@@ -211,6 +212,11 @@ display: block;
 
 .lightbox__chevronL {
     left: 0;
+}
+
+.Lightbox__title{
+    color: white;
+
 }
 
 .close_button {

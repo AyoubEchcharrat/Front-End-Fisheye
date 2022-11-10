@@ -1,4 +1,4 @@
-function displayLightbox(e,foundMedia,firstName) {
+function displayLightbox(e,foundMedia,foundTitle,firstName) {
 
     let lightbox = document.querySelector("#lightbox");
     lightbox.innerHTML = '';
@@ -10,10 +10,12 @@ function displayLightbox(e,foundMedia,firstName) {
     currentImage = Number(currentImage);
     console.log("current image number is : "+currentImage)
     console.log("name in database : "+foundMedia[currentImage])
-
-
-
+    
     const imageURL=`assets/Sample Photos/${firstName}/${foundMedia[currentImage]}`;
+
+    const title = document.createElement('p')
+    title.classList.add('Lightbox__title')
+    title.innerText = foundTitle[currentImage]
 
     const afterDot = imageURL.split('.');//on regarde le type de fichier (mp4 ou jpg/png)
     console.log("type of media : "+afterDot[1]);
@@ -26,12 +28,13 @@ function displayLightbox(e,foundMedia,firstName) {
         media.classList.add('lightbox__currentImage')
     }
     lightbox.append(media)
+    lightbox.append(title)
     media.setAttribute('src',imageURL)
 
     console.log("---------------------------")
 }
 
-function Move(e,foundMedia,firstName){
+function Move(e,foundMedia,foundTitle,firstName){
 
     const chevronL = document.querySelector(".lightbox__chevronL");
     const chevronR = document.querySelector(".lightbox__chevronR");
@@ -46,12 +49,12 @@ function Move(e,foundMedia,firstName){
             let newE = "media0";
             currentImage = 0;
             console.log("newE == " +newE)
-            displayLightbox(newE,foundMedia,firstName)
+            displayLightbox(newE,foundMedia,foundTitle,firstName)
 
         }else{
             let newE = ("media" + (currentImage));
             console.log("newE == " +newE)
-            displayLightbox(newE,foundMedia,firstName)
+            displayLightbox(newE,foundMedia,foundTitle,firstName)
         }
     });
 
@@ -62,12 +65,12 @@ function Move(e,foundMedia,firstName){
             let newE = "media"+(foundMedia.length-1);
             currentImage = (foundMedia.length-1);
             console.log("newE == " +newE)
-            displayLightbox(newE,foundMedia,firstName)
+            displayLightbox(newE,foundMedia,foundTitle,firstName)
 
         }else{
             let newE = ("media" + (currentImage));
             console.log("newE == " +newE)
-            displayLightbox(newE,foundMedia,firstName)
+            displayLightbox(newE,foundMedia,foundTitle,firstName)
         }
     });
 }

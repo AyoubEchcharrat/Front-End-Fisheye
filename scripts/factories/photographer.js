@@ -202,8 +202,8 @@ async function displayMediaFactory(media,photographers,IDselect){
         media.addEventListener('click', function sendtolightbox() {
             // transmission d'informations sur l'media cliquée
             IDclicked = this.id;
-            displayLightbox(IDclicked,foundMedia,firstName);
-            Move(IDclicked,foundMedia,firstName)
+            displayLightbox(IDclicked,foundMedia,foundTitle,firstName);
+            Move(IDclicked,foundMedia,foundTitle,firstName)
         }); 
         incremen = incremen +1 ;
     }
