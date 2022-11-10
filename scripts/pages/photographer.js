@@ -31,7 +31,7 @@ async function init() {
     displayOnPageFactory(photographers, IDselect);
     mediaFactory(media, IDselect);
     displayMediaFactory(media, photographers, IDselect);
-    likes();
+    likesFactory();
 };
 
 init();

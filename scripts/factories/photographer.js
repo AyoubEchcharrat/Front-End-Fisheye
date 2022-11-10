@@ -44,7 +44,6 @@ function photographerFactory(data) {
         article.appendChild(location);
         article.appendChild(text);
         article.appendChild(priceday);
-        //console.log(article)
         return (article);
     }
 
@@ -53,17 +52,14 @@ function photographerFactory(data) {
 
 async function foundPhotographer(photographers,IDselect){ //retourne le photographe correspondant
     let foundUser = null ;
-    //console.log("ID recherché : ",IDselect)
 
 
     for (let key in photographers) {
-        //console.log("boucle -> id : ",photographers[key].id)
         if (photographers[key].id == IDselect){
             foundUser = photographers[key];
             break
         }
     }
-    //console.log("foundUser = ",foundUser)
     return await foundUser
 }
 
@@ -84,9 +80,11 @@ async function displayOnPageFactory(photographers,IDselect) {
     infoBlocLeft.classList.add("infoBlocLeft");
 
     const infoBlocTarif = document.createElement('article');
-    infoBlocTarif.classList.add("infoBlocTarif");
+    infoBlocTarif.classList.add("infoBloc__Tarif");
     const putPrice = document.createElement( 'p' );
     putPrice.textContent = price +"€ /jour";
+    const putLikes = document.createElement('p');
+    putLikes.setAttribute('id','infoBloc__Likes')
 
     const img = document.createElement( 'img' );
     img.setAttribute("src", picture)
@@ -97,7 +95,7 @@ async function displayOnPageFactory(photographers,IDselect) {
     const text = document.createElement( 'p' );
     text.textContent = tagline;
 
-
+    infoBlocTarif.append(putLikes);
     infoBlocTarif.append(putPrice);
     infoBlocLeft.append(h1);
     infoBlocLeft.append(text);
@@ -112,11 +110,9 @@ async function mediaFactory(media,IDselect) {
     //renvoie les médias, page photographer
     
     let foundMedia = [] ;
-    //console.log("ID recherché : ",IDselect)
 
 
     for (let key in media) {
-        //console.log("boucle -> id : ",media[key].photographerId)
         if (media[key].photographerId == IDselect){
             if(media[key].image){
                 foundMedia.push(media[key].image)
@@ -125,7 +121,6 @@ async function mediaFactory(media,IDselect) {
             }
         }
     }
-    //console.log("foundMedia = ",foundMedia)
     return await foundMedia
 }
 
@@ -134,16 +129,13 @@ async function titleFactory(media,IDselect) {
     //renvoie le noms des médias, page photographer
     
     let foundTitle = [] ;
-    //console.log("ID recherché : ",IDselect)
 
 
     for (let key in media) {
-        //console.log("boucle -> id : ",media[key].photographerId)
         if (media[key].photographerId == IDselect){
                 foundTitle.push(media[key].title)
         }
     }
-    //console.log("foundMedia = ",foundMedia)
     return await foundTitle
 }
 
@@ -152,13 +144,11 @@ async function displayMediaFactory(media,photographers,IDselect){
     //HUB pour display les medias page photographer
 
     let foundMedia = await mediaFactory(media,IDselect);
-    console.log(foundMedia)
     let foundUser = await foundPhotographer(photographers,IDselect);
     let incremen = 0;
     const { name } = foundUser;
     let foundTitle = await titleFactory(media,IDselect);
     const firstName = name.split(' ')[0];
-    console.log(foundTitle)
 
     for (let key in foundMedia){
         const imageURL=`assets/Sample Photos/${firstName}/${foundMedia[key]}`;
@@ -179,18 +169,14 @@ async function displayMediaFactory(media,photographers,IDselect){
         imgContainer.classList.add('photographer-imgContainer')
         title.classList.add('photographer-title')
         title.textContent = foundTitle[key]
-        console.log(foundTitle[key])
 
         const afterDot = imageURL.split('.');
-        //console.log(afterDot[1]);
         if(afterDot[1]== 'mp4'){//video
-            console.log(afterDot[1])
             var media = document.createElement('video');
             media.src = imageURL;
             media.classList.add('photographer-card__video')
             imgContainer.append(media)
         }else{//photo
-            console.log(afterDot[1])
             var media = document.createElement('img');
             media.setAttribute('src',imageURL)
             media.classList.add('photographer-card__image')
@@ -225,19 +211,24 @@ async function displayMediaFactory(media,photographers,IDselect){
 }
 
 
-async function likes(){
+async function likesFactory(){
+    //gère l'ensemble du systeme de likes sur photos
 
     function getRandomInt(max) {
         return Math.floor(Math.random() * max);
     }
 
-    function addingOne(heart) {
+    function addingOne(heart) { 
+        //fonction d'incrementation pour les chiffres sur les photos et le total
+        let blocLikes = document.getElementById('infoBloc__Likes')
         let previous = heart.nextSibling
         number = Number(previous.innerText)
         if (heart.classList.contains('liked')){
             previous.innerText = number +1
+            blocLikes.innerText = Number(blocLikes.innerText) +1
         }else{
             previous.innerText = number -1
+            blocLikes.innerText = Number(blocLikes.innerText) -1
         }
     }
 
@@ -252,14 +243,29 @@ async function likes(){
                 addingOne(heart)
 
             })
+
         }
 
         for (const number of numbers) {
-            number.textContent = getRandomInt(100)
+            number.textContent = getRandomInt(1000)
         }
 
-    }, "500")
+    }, "100")
+    totalLikes()
+}
 
-    
+async function totalLikes(){
+    //gère l'affichage du total des likes
+    setTimeout(() => {
+        var hearts = document.querySelectorAll('.fa-heart');
+        let blocLikes = document.getElementById('infoBloc__Likes')
+        let total = 0;
 
+        for (const heart of hearts) {
+            let likes = heart.nextSibling
+            let number = Number(likes.innerText)
+            total = total + number
+        }
+        blocLikes.innerText = total
+    }, "200")
 }

@@ -156,12 +156,24 @@ display: block;
     height:100%;
 }
 
-.infoBlocTarif {
+.infoBloc__Tarif {
     position: fixed;
     right: 50px;
     bottom: 0;
     background-color: #D3573C;
     padding: 0px 40px;
+    display: flex;
+    color:rgb(255, 247, 247)
+}
+
+#infoBloc__Likes {
+    margin-right: 30px;
+}
+
+#infoBloc__Likes::after{
+    content: '\f004';
+    font-family: FontAwesome;
+    margin-left:8px
 }
 
 #lightbox_background{
