@@ -19,6 +19,15 @@
       <div class="photograph-header">
         <button class="contact_button" onclick="displayModal()">Contactez-moi</button>
       </div>
+      <div class="select-container">
+          <label for="tri">Trier par :</label>
+          <select id="tri" name="tri">
+            <option value="type00"></option>
+            <option value="type01">Popularité</option>
+            <option value="type02">Date</option>
+            <option value="type03">Alphabet</option>
+          </select>
+      </div>
       <div class="media-container"></div>
     </main>
 
@@ -62,10 +71,10 @@
 		</div>
 
 
-    <script src="scripts/factories/photographer.js"></script>
     <script src="scripts/pages/photographer.js"></script>
+    <script src="scripts/factories/photographer.js"></script>
     <script src="scripts/utils/contactForm.js"></script>
     <script src="scripts/utils/lightbox.js"></script>
-
+    <script src="scripts/utils/sort.js"></script>
   </body>
 </html>

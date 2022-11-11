@@ -160,9 +160,11 @@ display: block;
     position: fixed;
     right: 50px;
     bottom: 0;
+    min-width: 175px;
     background-color: #D3573C;
     padding: 0px 40px;
     display: flex;
+    justify-content: space-between;
     color:rgb(255, 247, 247)
 }
 
@@ -298,4 +300,17 @@ p.card__priceday {
 .photographer-likes {
     display: flex;
     flex-direction: row-reverse;
+}
+
+.select-container {
+    padding: 40px 100px 0 100px;
+}
+
+#tri {
+    padding: 10px 15px;
+    background-color: #901c1c;
+    color: white;
+}
+#tri option{
+    width:inherit
 }

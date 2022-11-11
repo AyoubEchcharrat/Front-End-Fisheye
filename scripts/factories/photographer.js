@@ -30,12 +30,12 @@ function photographerFactory(data) {
 
         let realWidth = img.naturalWidth;
         let realHeight = img.naturalHeight;
-        console.log("width = " + realWidth + ", " + "height = " + realHeight);
+        //console.log("width = " + realWidth + ", " + "height = " + realHeight);
         if(realWidth>realHeight){
-            console.log("injection de landscape")
+            //console.log("injection de landscape")
             img.classList.add('card__img__landscape') 
         }
-        console.log("-------")
+        //console.log("-------")
 
         containerImg.appendChild(img)
         a.appendChild(containerImg);
@@ -50,9 +50,9 @@ function photographerFactory(data) {
     return { name, picture, getUserCardDOM }
 }
 
-async function foundPhotographer(photographers,IDselect){ //retourne le photographe correspondant
+async function foundPhotographer(photographers,IDselect){ 
+    //retourne le photographe correspondant
     let foundUser = null ;
-
 
     for (let key in photographers) {
         if (photographers[key].id == IDselect){
@@ -108,9 +108,7 @@ async function displayOnPageFactory(photographers,IDselect) {
 
 async function mediaFactory(media,IDselect) { 
     //renvoie les médias, page photographer
-    
     let foundMedia = [] ;
-
 
     for (let key in media) {
         if (media[key].photographerId == IDselect){
@@ -123,7 +121,6 @@ async function mediaFactory(media,IDselect) {
     }
     return await foundMedia
 }
-
 
 async function titleFactory(media,IDselect) { 
     //renvoie le noms des médias, page photographer
@@ -142,12 +139,13 @@ async function titleFactory(media,IDselect) {
 
 async function displayMediaFactory(media,photographers,IDselect){
     //HUB pour display les medias page photographer
-
     let foundMedia = await mediaFactory(media,IDselect);
     let foundUser = await foundPhotographer(photographers,IDselect);
     let incremen = 0;
     const { name } = foundUser;
     let foundTitle = await titleFactory(media,IDselect);
+    let foundLikes = await foundLikesFactory(media,IDselect);
+    //console.log(media)
     const firstName = name.split(' ')[0];
 
     for (let key in foundMedia){
@@ -163,7 +161,12 @@ async function displayMediaFactory(media,photographers,IDselect){
 
         likes.classList.add('photographer-likes')
         number.classList.add('photographer-numbers')
-        likes.innerHTML = '<i class="fa-regular fa-heart"></i>';
+        number.innerText = foundLikes[key]
+
+        let icon = document.createElement('i')
+        icon.classList.add('fa-regular','fa-heart')
+        likes.append(icon)
+        
         infoContainer.classList.add('photographer-infoContainer')
         card.classList.add('photographer-card')
         imgContainer.classList.add('photographer-imgContainer')
@@ -183,12 +186,12 @@ async function displayMediaFactory(media,photographers,IDselect){
             imgContainer.append(media)
             let realWidth = media.naturalWidth;
             let realHeight = media.naturalHeight;
-            console.log("width = " + realWidth + ", " + "height = " + realHeight);
+            //console.log("width = " + realWidth + ", " + "height = " + realHeight);
             if(realWidth>realHeight){
-                console.log("injection de landscape")
+                //console.log("injection de landscape")
                 media.classList.add('photographer-card__image__landscape') 
             }
-            console.log("-------")
+            //console.log("-------")
         }
         blocImage.append(card)
         card.append(imgContainer)
@@ -207,16 +210,12 @@ async function displayMediaFactory(media,photographers,IDselect){
         }); 
         incremen = incremen +1 ;
     }
-
+    likesFactory();
 }
 
 
 async function likesFactory(){
     //gère l'ensemble du systeme de likes sur photos
-
-    function getRandomInt(max) {
-        return Math.floor(Math.random() * max);
-    }
 
     function addingOne(heart) { 
         //fonction d'incrementation pour les chiffres sur les photos et le total
@@ -233,24 +232,16 @@ async function likesFactory(){
     }
 
     setTimeout(() => {
-
         var hearts = document.querySelectorAll('.fa-heart');
-        var numbers = document.querySelectorAll('.photographer-numbers');
 
         for (const heart of hearts) {
             heart.addEventListener('click', function liked() {
                 heart.classList.toggle('liked')
                 addingOne(heart)
-
-            })
-
+            });
         }
-
-        for (const number of numbers) {
-            number.textContent = getRandomInt(1000)
-        }
-
     }, "100")
+
     totalLikes()
 }
 
@@ -268,4 +259,20 @@ async function totalLikes(){
         }
         blocLikes.innerText = total
     }, "200")
+}
+
+
+async function foundLikesFactory(media,IDselect) { 
+    //renvoie le noms des médias, page photographer
+    
+    let foundLikes = [] ;
+
+
+    for (let key in media) {
+        if (media[key].photographerId == IDselect){
+                foundLikes.push(media[key].likes)
+        }
+    }
+    console.log(foundLikes)
+    return foundLikes
 }
