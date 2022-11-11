@@ -273,6 +273,5 @@ async function foundLikesFactory(media,IDselect) {
                 foundLikes.push(media[key].likes)
         }
     }
-    console.log(foundLikes)
     return foundLikes
 }
