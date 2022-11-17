@@ -1,0 +1,8 @@
+{
+    "scripts": {
+      "lint": "eslint --max-warnings=0 ."
+    },
+    "gitHooks": {
+      "pre-push": "npm run lint"
+    }
+  }
