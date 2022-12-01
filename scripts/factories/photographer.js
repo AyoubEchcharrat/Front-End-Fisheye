@@ -210,7 +210,11 @@ async function displayMediaFactory(media, photographers, IDselect) {
 
         card.addEventListener('keydown', function sendtolightbox(event) {
             if (event.code === 'Space' || event.code === 'Enter') {
-                IDclicked = this.id;
+                if (event.target.querySelector('img')) {
+                    IDclicked = event.target.querySelector('img').id
+                } else {
+                    IDclicked = event.target.querySelector('video').id
+                }
                 displayLightbox(IDclicked, foundMedia, foundTitle, firstName);
                 Move(IDclicked, foundMedia, foundTitle, firstName)
                 document.querySelector('.close_button').focus({ focusVisible: true });
@@ -218,7 +222,7 @@ async function displayMediaFactory(media, photographers, IDselect) {
         });
         media.addEventListener('click', function sendtolightbox() {
             // transmission d'informations sur le media cliquée
-            IDclicked = this.id;
+            let IDclicked = this.id;
             displayLightbox(IDclicked, foundMedia, foundTitle, firstName);
             Move(IDclicked, foundMedia, foundTitle, firstName)
             document.querySelector('.close_button').focus({ focusVisible: true });
