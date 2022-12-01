@@ -105,6 +105,8 @@ async function displayOnPageFactory(photographers, IDselect) {
     photographHeader.prepend(infoBlocLeft)
     photographHeader.append(infoBlocRight);
     main.append(infoBlocTarif)
+
+    document.getElementById('nameContactForm').innerText = name
 }
 
 async function mediaFactory(media, IDselect) {
@@ -166,6 +168,7 @@ async function displayMediaFactory(media, photographers, IDselect) {
 
         let icon = document.createElement('i')
         icon.classList.add('fa-regular', 'fa-heart')
+        icon.setAttribute('aria-label', 'likes')
         likes.append(icon)
 
         infoContainer.classList.add('photographer-infoContainer')
@@ -210,7 +213,7 @@ async function displayMediaFactory(media, photographers, IDselect) {
                 IDclicked = this.id;
                 displayLightbox(IDclicked, foundMedia, foundTitle, firstName);
                 Move(IDclicked, foundMedia, foundTitle, firstName)
-                    .focus();
+                document.querySelector('.close_button').focus({ focusVisible: true });
             }
         });
         media.addEventListener('click', function sendtolightbox() {
@@ -218,7 +221,7 @@ async function displayMediaFactory(media, photographers, IDselect) {
             IDclicked = this.id;
             displayLightbox(IDclicked, foundMedia, foundTitle, firstName);
             Move(IDclicked, foundMedia, foundTitle, firstName)
-            document.querySelector('.close_button').focus();
+            document.querySelector('.close_button').focus({ focusVisible: true });
         });
         incremen = incremen + 1;
     }

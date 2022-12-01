@@ -1,12 +1,20 @@
 function displayModal() {
     const modal = document.getElementById("contact_modal");
     modal.style.display = "block";
-    modal.querySelector('modal').focus()
+    document.getElementById('contact-form_close-button').focus()
 }
 
 function closeModal() {
     const modal = document.getElementById("contact_modal");
     modal.style.display = "none";
+    document.querySelector('.logo_link').focus()
+}
+
+function closeModalByKeyPress(e) {
+    if (e.code !== 'Space' && e.code !== 'Enter') {
+        return
+    }
+    closeModal()
 }
 
 document.getElementById("contact_button").addEventListener("click", async function (e) {

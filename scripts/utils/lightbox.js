@@ -109,13 +109,17 @@ function Move(e, foundMedia, foundTitle, firstName) {
 
 const modal = document.getElementById("lightbox_background");
 const closebutton = document.querySelector('.close_button')
-closebutton.addEventListener('keydown', function closeLightbox2(event) {
-    if (event.code === 'Space' || event.code === 'Enter') {
-        modal.style.display = "none";
-    }
-});
+
+
 function closeLightbox() {
     const modal = document.getElementById("lightbox_background");
     modal.style.display = "none";
+    document.querySelector('.logo_link').focus({ focusVisible: true })
 }
 
+
+function closeLightboxByKeyPress(e) {
+    if (e.code === 'Space' || e.code === 'Enter') {
+        closeLightbox()
+    }
+}

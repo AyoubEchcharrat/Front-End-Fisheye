@@ -49,11 +49,18 @@
 }
 
 .modal header h2 {
-    font-size: 64px;
+    font-size: 60px;
     font-weight: normal;
     text-align: center;
+    margin: 0;
 }
 
+#nameContactForm {
+    margin: 0;
+    font-size: 38px;
+    position: relative;
+    top: -16px;
+}
 form {
     display: flex;
     width: 100%;
@@ -189,7 +196,7 @@ display: block;
 
 #lightbox_background{
     display: none;
-    background-color: rgba(0, 0, 0, 0.75);
+    background-color: white;
     position: fixed;
     top: 0;
     left: 0;
@@ -203,18 +210,22 @@ display: block;
 #lightbox {
     height: 100%;
     display: flex;
+    align-items: baseline;
+    flex-direction: column;
+}
+.lightbox-center{
+    height: 100%;
+    display: flex;
     align-items: center;
     flex-direction: column;
 }
-
 
 .lightbox__chevronR,.lightbox__chevronL {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
     font-size: 100px;
-    color:white;
-    z-index:99;
+    color: #901C1C;
     cursor: pointer;
 }
 .lightbox__chevronR {
@@ -226,7 +237,7 @@ display: block;
 }
 
 .Lightbox__title{
-    color: white;
+    color: #901C1C
 
 }
 
@@ -234,10 +245,14 @@ display: block;
     padding: 33px;
     width: 20px;
     cursor: pointer;
+    filter: brightness(0) saturate(100%) invert(15%) sepia(71%) 
+    saturate(3328%) hue-rotate(349deg) brightness(82%) contrast(90%);
 }
 
-
-
+.close_button-tab {
+    display: flex;
+    justify-content: flex-end;
+}
 .card__containerImg{
     height: 250px;
     width: 250px;
@@ -294,7 +309,7 @@ p.card__priceday {
 
 .fa-heart{
     color:#901c1c;
-    margin: 18px 0px 18px 10px;
+    margin: 13px 0px 16px 6px;
 }
 
 .liked::before{
