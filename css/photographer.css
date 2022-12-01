@@ -2,6 +2,12 @@
     display: none;
 }
 
+.hidden{
+    visibility: hidden;
+    position: absolute;
+    top:0
+}
+
 .photograph-header {
     background-color: #FAFAFA;
     height: 300px;
@@ -116,10 +122,13 @@ display: block;
     object-fit: cover;
     object-position: center;
     width: 100%;
+    min-height:300px;
 }
 
 .photographer-card {
     padding: 10px 40px;
+    background: none;
+    border:none;
 }
 
 .photographer-imgContainer{
@@ -241,6 +250,7 @@ display: block;
 .card__img{
     width: 115%;
     object-fit: cover;
+    min-height:300px;
 }
 
 .card__img__landscape{

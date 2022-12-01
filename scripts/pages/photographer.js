@@ -1,6 +1,6 @@
 //Mettre le code JavaScript lié à la page photographer.html
 async function getPhotographers() {
-    return await fetch("https://ayoubechcharrat.github.io/Front-End-Fisheye/data/photographers.json")
+    return await fetch("data/photographers.json")
         .then(function (res) {
             if (res.ok) {
                 return res.json();

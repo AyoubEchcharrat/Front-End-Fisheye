@@ -13,11 +13,37 @@
     <header>
       <a href="index.html" class="logo_link">
       <img src="assets/images/logo.png" class="logo" /></a>
+      <span class="hidden">Current page:</span>
+      <span class="hidden">Page photographe</span>
     </header>
 
     <main id="main">
       <div class="photograph-header">
-        <button class="contact_button" onclick="displayModal()">Contactez-moi</button>
+        <button aria-label='button pour ouvrir la pop-up de contact' class="contact_button" onclick="displayModal()">Contactez-moi</button>
+      </div>
+      <div id="contact_modal">
+        <div class="modal">
+          <header>
+            <h2>Contactez-moi</h2>
+            <img aria-label='button pour fermer la pop-up de contact' src="assets/icons/close.svg" onclick="closeModal()" />
+          </header>
+          <form>
+            <div>
+              <label for="firstname">Prénom</label>
+              <input type="text" id="firstname" name="firstname" required />
+  
+              <label for="lastname">Nom</label>
+              <input type="text" id="lastname" name="lastname" required />
+  
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" required />
+  
+              <label for="yourmessage">Message</label>
+              <input type="text" id="yourmessage" name="yourmessage"  />
+            </div>
+            <button aria-label='Envoyer les données' class="contact_button" id="contact_button">Envoyer</button>
+          </form>
+        </div>
       </div>
       <div class="select-container">
           <label for="tri">Trier par :</label>
@@ -25,52 +51,21 @@
             <option value="type00"></option>
             <option value="type01">Popularité</option>
             <option value="type02">Date</option>
-            <option value="type03">Alphabet</option>
+            <option value="type03">Titre</option>
           </select>
       </div>
       <div class="media-container"></div>
     </main>
 
-
     <div id="lightbox_background">
         <header>
           <h2>Lightbox</h2>
-          <img class="close_button" src="assets/icons/close.svg" onclick="closeLightbox()" />
+          <img aria-label="bouton pour fermer la lightbox" class="close_button" src="assets/icons/close.svg" onclick="closeLightbox()" />
         </header>
-        <div class="lightbox__chevronL"><</div>
-        <div class="lightbox__chevronR">></div>
-
+        <div tabindex="0" aria-label="bouton pour passer à la photo d'avant" class="lightbox__chevronL"><</div>
+        <div tabindex="0" aria-label="bouton pour passer à la photo d'après" class="lightbox__chevronR">></div>
         <div id="lightbox"></div>          
-
     </div>
-
-
-    <div id="contact_modal">
-			<div class="modal">
-				<header>
-          <h2>Contactez-moi</h2>
-          <img src="assets/icons/close.svg" onclick="closeModal()" />
-        </header>
-				<form>
-					<div>
-            <label for="firstname">Prénom</label>
-            <input type="text" id="firstname" name="firstname" required />
-
-            <label for="lastname">Nom</label>
-            <input type="text" id="lastname" name="lastname" required />
-
-            <label for="email">Email</label>
-            <input type="email" id="email" name="email" required />
-
-            <label for="yourmessage">Message</label>
-            <input type="text" id="yourmessage" name="yourmessage"  />
-					</div>
-          <button class="contact_button" id="contact_button">Envoyer</button>
-				</form>
-			</div>
-		</div>
-
-
     <script src="scripts/pages/photographer.js"></script>
     <script src="scripts/factories/photographer.js"></script>
     <script src="scripts/utils/contactForm.js"></script>
