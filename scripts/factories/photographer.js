@@ -11,6 +11,7 @@ function photographerFactory(data) {// eslint-disable-line no-unused-vars
         const img = document.createElement('img');
         const containerImg = document.createElement('div');
         img.setAttribute("src", picture)
+        img.setAttribute("alt", 'photo de ' + name)
         const h2 = document.createElement('h2');
         h2.textContent = name;
         const a = document.createElement('a');
