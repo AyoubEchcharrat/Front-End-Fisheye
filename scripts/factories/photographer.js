@@ -1,4 +1,5 @@
-function photographerFactory(data) {
+
+function photographerFactory(data) {// eslint-disable-line no-unused-vars
     //factory qui renvoie l'HTML de chaque vignette photographe page d'accueil
     const { name, portrait, tagline, city, country, price, id } = data;
 
@@ -54,9 +55,9 @@ function photographerFactory(data) {
 async function foundPhotographer(photographers, IDselect) {
     //retourne le photographe correspondant
     let foundUser = null;
-
+    IDselect = parseInt(IDselect)
     for (let key in photographers) {
-        if (photographers[key].id == IDselect) {
+        if (photographers[key].id === IDselect) {
             foundUser = photographers[key];
             break
         }
@@ -64,16 +65,15 @@ async function foundPhotographer(photographers, IDselect) {
     return await foundUser
 }
 
-async function displayOnPageFactory(photographers, IDselect) {
+async function displayOnPageFactory(photographers, IDselect) {// eslint-disable-line no-unused-vars
     //affiche les élém. de presentation du photographe sur la page photographer
 
-    foundUser = await foundPhotographer(photographers, IDselect);
+    let foundUser = await foundPhotographer(photographers, IDselect);
 
     const { name, portrait, tagline, city, country, price } = foundUser;
 
     const picture = `assets/photographers/${portrait}`;
     const photographHeader = document.querySelector(".photograph-header");
-    const button = document.querySelector(".contact_button");
     const main = document.querySelector("#main");
 
     const infoBlocLeft = document.createElement('article');
@@ -112,9 +112,9 @@ async function displayOnPageFactory(photographers, IDselect) {
 async function mediaFactory(media, IDselect) {
     //renvoie les médias, page photographer
     let foundMedia = [];
-
+    IDselect = parseInt(IDselect)
     for (let key in media) {
-        if (media[key].photographerId == IDselect) {
+        if (media[key].photographerId === IDselect) {
             if (media[key].image) {
                 foundMedia.push(media[key].image)
             } else {
@@ -127,12 +127,11 @@ async function mediaFactory(media, IDselect) {
 
 async function titleFactory(media, IDselect) {
     //renvoie le noms des médias, page photographer
-
     let foundTitle = [];
-
+    IDselect = parseInt(IDselect)
 
     for (let key in media) {
-        if (media[key].photographerId == IDselect) {
+        if (media[key].photographerId === IDselect) {
             foundTitle.push(media[key].title)
         }
     }
@@ -140,7 +139,7 @@ async function titleFactory(media, IDselect) {
 }
 
 
-async function displayMediaFactory(media, photographers, IDselect) {
+async function displayMediaFactory(media, photographers, IDselect) {// eslint-disable-line no-unused-vars
     //HUB pour display les medias page photographer
     let foundMedia = await mediaFactory(media, IDselect);
     let foundUser = await foundPhotographer(photographers, IDselect);
@@ -179,24 +178,25 @@ async function displayMediaFactory(media, photographers, IDselect) {
         title.textContent = foundTitle[key]
 
         const afterDot = imageURL.split('.');
-        if (afterDot[1] == 'mp4') {//video
-            var media = document.createElement('video');
-            media.src = imageURL;
-            media.classList.add('photographer-card__video')
-            media.setAttribute('alt', foundTitle[key])
-            imgContainer.append(media)
+        if (afterDot[1] === 'mp4') {//video
+            var mediaAdd = document.createElement('video');
+            mediaAdd.src = imageURL;
+            mediaAdd.classList.add('photographer-card__video')
+            mediaAdd.setAttribute('alt', foundTitle[key])
+            imgContainer.append(mediaAdd)
         } else {//photo
-            var media = document.createElement('img');
-            media.setAttribute('src', imageURL)
-            media.classList.add('photographer-card__image')
-            media.setAttribute('alt', foundTitle[key])
-            imgContainer.append(media)
-            let realWidth = media.naturalWidth;
-            let realHeight = media.naturalHeight;
+            // eslint-disable-next-line no-redeclare
+            var mediaAdd = document.createElement('img');
+            mediaAdd.setAttribute('src', imageURL)
+            mediaAdd.classList.add('photographer-card__image')
+            mediaAdd.setAttribute('alt', foundTitle[key])
+            imgContainer.append(mediaAdd)
+            let realWidth = mediaAdd.naturalWidth;
+            let realHeight = mediaAdd.naturalHeight;
             //console.log("width = " + realWidth + ", " + "height = " + realHeight);
             if (realWidth > realHeight) {
                 //console.log("injection de landscape")
-                media.classList.add('photographer-card__image__landscape')
+                mediaAdd.classList.add('photographer-card__image__landscape')
             }
             //console.log("-------")
         }
@@ -206,24 +206,30 @@ async function displayMediaFactory(media, photographers, IDselect) {
         infoContainer.append(title)
         infoContainer.append(likes)
         card.append(infoContainer)
-        media.setAttribute('id', 'media' + incremen)
+        mediaAdd.setAttribute('id', 'media' + incremen)
 
         card.addEventListener('keydown', function sendtolightbox(event) {
             if (event.code === 'Space' || event.code === 'Enter') {
                 if (event.target.querySelector('img')) {
+                    // eslint-disable-next-line no-undef
                     IDclicked = event.target.querySelector('img').id
                 } else {
+                    // eslint-disable-next-line no-undef
                     IDclicked = event.target.querySelector('video').id
                 }
+                // eslint-disable-next-line no-undef
                 displayLightbox(IDclicked, foundMedia, foundTitle, firstName);
+                // eslint-disable-next-line no-undef
                 Move(IDclicked, foundMedia, foundTitle, firstName)
                 document.querySelector('.close_button').focus({ focusVisible: true });
             }
         });
-        media.addEventListener('click', function sendtolightbox() {
+        mediaAdd.addEventListener('click', function sendtolightbox() {
             // transmission d'informations sur le media cliquée
             let IDclicked = this.id;
+            // eslint-disable-next-line no-undef
             displayLightbox(IDclicked, foundMedia, foundTitle, firstName);
+            // eslint-disable-next-line no-undef
             Move(IDclicked, foundMedia, foundTitle, firstName)
             document.querySelector('.close_button').focus({ focusVisible: true });
         });
@@ -240,7 +246,7 @@ async function likesFactory() {
         //fonction d'incrementation pour les chiffres sur les photos et le total
         let blocLikes = document.getElementById('infoBloc__Likes')
         let previous = heart.nextSibling
-        number = Number(previous.innerText)
+        let number = Number(previous.innerText)
         if (heart.classList.contains('liked')) {
             previous.innerText = number + 1
             blocLikes.innerText = Number(blocLikes.innerText) + 1
@@ -283,12 +289,10 @@ async function totalLikes() {
 
 async function foundLikesFactory(media, IDselect) {
     //renvoie le noms des médias, page photographer
-
     let foundLikes = [];
-
-
+    IDselect = parseInt(IDselect)
     for (let key in media) {
-        if (media[key].photographerId == IDselect) {
+        if (media[key].photographerId === IDselect) {
             foundLikes.push(media[key].likes)
         }
     }
